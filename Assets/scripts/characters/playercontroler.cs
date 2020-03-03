@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
+[RequireComponent(typeof(NavMeshAgent))]
 public class playercontroler : MonoBehaviour
 {
     NavMeshAgent agent;
     Camera cam;
     public LayerMask walkableLayer;
 
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         cam = Camera.main;
