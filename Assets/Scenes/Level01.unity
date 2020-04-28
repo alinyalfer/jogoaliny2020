@@ -654,6 +654,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e5838ca8aff1e46bcdc9cff1464626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: 0, y: -0.5, z: -0.4}
   zoomSpeed: 4
@@ -667,6 +671,8 @@ MonoBehaviour:
   yawSpeed: 120
   yawBackSpeed: 6
   maxYaw: 60
+  currentZoom: 20
+  currentYaw: 0
 --- !u!114 &534669907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +685,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162df55bbba08ac4eaabed14e552eab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  offset: {x: 0, y: -0.5, z: -0.4}
+  zoomSpeed: 4
+  minZoom: 10
+  maxZoom: 20
+  minX: 8
+  maxX: 32
+  minZ: 9
+  maxZ: 40
+  pitch: 2
+  yawSpeed: 120
+  yawBackSpeed: 6
+  maxYaw: 60
 --- !u!82 &534669908
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1131,6 +1150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356745488}
   - component: {fileID: 1356745487}
+  - component: {fileID: 1356745489}
   m_Layer: 12
   m_Name: Coin
   m_TagString: Untagged
@@ -1166,6 +1186,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1356745489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356745486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adc3bbcbc4a098498bb114ffcd033da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angularSpeed: 6
+  contactRadius: 0.5
+  amount: 1
+  pickupSound: coin-pickup
 --- !u!1 &1391756605
 GameObject:
   m_ObjectHideFlags: 0
