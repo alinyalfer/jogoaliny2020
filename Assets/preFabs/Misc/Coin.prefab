@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1175703136819652213}
   - component: {fileID: 1175703136819652202}
   - component: {fileID: 1175703136819652212}
+  - component: {fileID: 4645624078710957303}
+  - component: {fileID: 1920079158491529372}
   m_Layer: 12
   m_Name: Coin
   m_TagString: Untagged
@@ -45,7 +47,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!114 &1175703136819652212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +64,44 @@ MonoBehaviour:
   contactRadius: 0.5
   amount: 1
   pickupSound: coin-pickup
+--- !u!54 &4645624078710957303
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175703136819652203}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &1920079158491529372
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175703136819652203}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1175703137475545778
 GameObject:
   m_ObjectHideFlags: 0
