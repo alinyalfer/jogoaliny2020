@@ -342,7 +342,7 @@ MonoBehaviour:
       type: 3}
     waitTime: 2
     coolDown: 0
-  - cost: 7
+  - cost: 8
     prefab: {fileID: 9155197333374777416, guid: 8bc1f40ccfd1a3a46a1afbf36bcec542,
       type: 3}
     waitTime: 10
@@ -1755,6 +1755,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Generator
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155197333374777417, guid: 8bc1f40ccfd1a3a46a1afbf36bcec542,
+        type: 3}
+      propertyPath: delay
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155197333374777417, guid: 8bc1f40ccfd1a3a46a1afbf36bcec542,
+        type: 3}
+      propertyPath: firstDelay
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9155197333374777420, guid: 8bc1f40ccfd1a3a46a1afbf36bcec542,
         type: 3}
