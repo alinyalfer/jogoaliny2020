@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public Text errorText;
     public float errorTime = 1.5f;
     public Text coinText;
+    public Text waveCountText;
     public GameObject[] cooldownObjects;
     public Text[] actionCosts;
     Image[] cooldownImages;
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
         LevelManager.instance.onActionCooldownUpdate += OnActionCooldownUpdate;
         LevelManager.instance.onResourceUpdate += OnResourceUpdate;
         LevelManager.instance.onReportableError += OnReportableError;
+        LevelManager.instance.onWaveUpdate += OnWaveUpdate;
     }
     void Start()
     {
@@ -64,6 +66,11 @@ public class UIManager : MonoBehaviour
         errorText.text = message;
         errorPanel.SetActive(true);
         StartCoroutine(TurnOffError());
+    }
+
+    void OnWaveUpdate (int totalWaves, int currentWave)
+    {
+        waveCountText.text = currentWave + " / " + totalWaves;
     }
 
     IEnumerator TurnOffError()
