@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NavGame.Core;
+using NavGame.Models;
 
 namespace NavGame.Managers
 {
@@ -14,7 +15,9 @@ namespace NavGame.Managers
         public OnActionSelectEvent onActionSelect;
         public OnActionCancelEvent onActionCancel;
         public OnActionCooldownUpdateEvent onActionCooldownUpdate;
+        public OnResourceUpdateEvent onResourceUpdate;
         protected int selectedAction = -1;
+        protected LevelData levelData = new LevelData();
 
         protected virtual void Awake()
         {
@@ -30,6 +33,15 @@ namespace NavGame.Managers
         void Start ()
         {
             StartCoroutine(SpawnBad());
+        }
+
+        public virtual void AddResource(int amount)
+        {
+            levelData.AddCoins(amount);
+            if (onResourceUpdate != null)
+            {
+                onResourceUpdate(levelData.CoinCount);
+            }
         }
 
         public virtual void SelectAction (int actionIndex)
