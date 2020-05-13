@@ -16,21 +16,22 @@ namespace NavGame.Managers
         public OnActionCancelEvent onActionCancel;
         public OnActionCooldownUpdateEvent onActionCooldownUpdate;
         public OnResourceUpdateEvent onResourceUpdate;
+        public OnReportableErrorEvent onReportableError;
         protected int selectedAction = -1;
         protected LevelData levelData = new LevelData();
 
         protected virtual void Awake()
         {
-            if(instance == null)
+            if (instance == null)
             {
-                instance=this;
+                instance = this;
             }
-            else 
+            else
             {
                 Destroy(gameObject);
             }
         }
-        void Start ()
+        void Start()
         {
             StartCoroutine(SpawnBad());
         }
@@ -44,27 +45,56 @@ namespace NavGame.Managers
             }
         }
 
-        public virtual void SelectAction (int actionIndex)
+        public virtual void SelectAction(int actionIndex)
         {
-            if (actions[actionIndex].coolDown > 0)
+
+            try
+            {
+                levelData.ValidateCoinAmount(actions[actionIndex].cost);
+                if (actions[actionIndex].coolDown > 0)
+                {
+                    AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
+                    return;
+                }
+                CancelAction();
+                selectedAction = actionIndex;
+                if (onActionSelect != null)
+                {
+                    onActionSelect(actionIndex);
+                }
+            }
+            catch (InvalidOperationException e)
             {
                 AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
-                return;
-            }
-            CancelAction();
-            selectedAction=actionIndex;
-            if (onActionSelect != null)
-            {
-                onActionSelect(actionIndex);
+                if (onReportableError != null)
+                {
+                    onReportableError(e.Message);
+                }
             }
         }
 
-        public virtual void DoAction (Vector3 point)
+        public virtual void DoAction(Vector3 point)
         {
-            Instantiate(actions[selectedAction].prefab, point, Quaternion.identity);
-            int index = selectedAction;
-            selectedAction = -1;
-            StartCoroutine(ProcessCooldown(index));
+            try
+            {
+                levelData.ConsumeCoins(actions[selectedAction].cost);
+                Instantiate(actions[selectedAction].prefab, point, Quaternion.identity);
+                if (onResourceUpdate != null)
+                {
+                    onResourceUpdate(levelData.CoinCount);
+                }
+                int index = selectedAction;
+                selectedAction = -1;
+                StartCoroutine(ProcessCooldown(index));
+            }
+            catch (InvalidOperationException e)
+            {
+                AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
+                if (onReportableError != null)
+                {
+                    onReportableError(e.Message);
+                }
+            }
         }
 
         public virtual void CancelAction()
@@ -84,7 +114,7 @@ namespace NavGame.Managers
             return selectedAction != -1;
         }
 
-        IEnumerator ProcessCooldown (int actionIndex)
+        IEnumerator ProcessCooldown(int actionIndex)
         {
             Action action = actions[actionIndex];
             action.coolDown = action.waitTime;
@@ -99,14 +129,14 @@ namespace NavGame.Managers
             }
             action.coolDown = 0f;
             if (onActionCooldownUpdate != null)
-                {
-                    onActionCooldownUpdate(actionIndex, action.coolDown, action.waitTime);
-                }
+            {
+                onActionCooldownUpdate(actionIndex, action.coolDown, action.waitTime);
+            }
         }
         protected abstract IEnumerator SpawnBad();
 
         [Serializable]
-        public class Action 
+        public class Action
         {
             public int cost;
             public GameObject prefab;
