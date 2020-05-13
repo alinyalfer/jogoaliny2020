@@ -33,23 +33,38 @@ public class Level01Manager : LevelManager
             yield return null;
         }
 
-        for (int i=0; i<badWaves;i++)
+        for (int i = 0; i < badWaves; i++)
         {
-            for (int j=0; j<badSpawn.Length; j++)
+            for (int j = 0; j < badSpawn.Length; j++)
             {
-                for (int k=0; k<monstersPerWave; k++)
+                for (int k = 0; k < monstersPerWave; k++)
                 {
                     Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f), 0f, Random.Range(-0.1f, 0.1f));
-                    Instantiate (badPrefab, badSpawn[j].position + offset, Quaternion.identity);
+                    Instantiate(badPrefab, badSpawn[j].position + offset, Quaternion.identity);
                 }
             }
             if (onWaveUpdate != null)
             {
-                onWaveUpdate(badWaves, i+1);
+                onWaveUpdate(badWaves, i + 1);
             }
-            yield return new WaitForSeconds (waitTimeBetweenWaves);
+
+            if (i < badWaves - 1)
+            {
+                wait = waitTimeBetweenWaves;
+                while (wait > 0)
+                {
+                    if (onWaveCountdown != null)
+                    {
+                        onWaveCountdown(wait);
+                    }
+                    wait -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+        }
+        if (onWaveCountdown != null)
+        {
+            onWaveCountdown(wait);
         }
     }
-
-
 }
