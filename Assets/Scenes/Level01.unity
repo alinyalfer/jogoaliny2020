@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 113978304}
   - component: {fileID: 113978303}
   - component: {fileID: 113978302}
+  - component: {fileID: 113978305}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -384,6 +385,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &113978305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113978300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c16d62b92296e448d729fc879063a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothness: 0.1
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,6 +1392,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 113978301}
     m_Modifications:
+    - target: {fileID: 5149615059983052743, guid: b8df554fd9f3f1344a9f6a7e44f09ea1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fa54a4cd2fdf079488e67ca9a834a8ec, type: 2}
     - target: {fileID: 5149615059992567219, guid: b8df554fd9f3f1344a9f6a7e44f09ea1,
         type: 3}
       propertyPath: m_Name
