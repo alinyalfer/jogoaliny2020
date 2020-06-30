@@ -12,6 +12,7 @@ namespace NavGame.Core
         public OnDamageTakenEvent onDamageTaken;
         public OnHealthChangedEvent onHealthChanged;
         public OnDiedEvent onDied;
+        bool isDead = false;
 
         protected virtual void Awake()
         {
@@ -43,10 +44,14 @@ namespace NavGame.Core
 
         public virtual void Die()
         {
-            Destroy(gameObject);
-            if (onDied != null)
+            if (!isDead)
             {
-                onDied();
+                isDead = true;
+                Destroy(gameObject);
+                if (onDied != null)
+                {
+                    onDied();
+                }
             }
         }
     }
