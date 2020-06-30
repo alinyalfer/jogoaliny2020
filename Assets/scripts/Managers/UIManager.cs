@@ -7,6 +7,7 @@ using NavGame.Managers;
 public class UIManager : MonoBehaviour
 {
     public GameObject errorPanel;
+    public GameObject defeatPanel;
     public Text errorText;
     public float errorTime = 1.5f;
     public Text coinText;
@@ -16,7 +17,7 @@ public class UIManager : MonoBehaviour
     public Text[] actionCosts;
     Image[] cooldownImages;
 
-    void Awake()
+    void OnEnable()
     {
         LevelManager.instance.onActionSelect += OnActionSelect;
         LevelManager.instance.onActionCancel += OnActionCancel;
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour
         LevelManager.instance.onReportableError += OnReportableError;
         LevelManager.instance.onWaveUpdate += OnWaveUpdate;
         LevelManager.instance.onWaveCountdown += OnWaveCountdown;
+        LevelManager.instance.onDefeat += OnDefeat;
     }
     void Start()
     {
@@ -78,6 +80,24 @@ public class UIManager : MonoBehaviour
     void OnWaveCountdown(float remainingTime)
     {
         waveCountdownText.text = remainingTime.ToString("F1");
+    }
+
+    void OnDefeat()
+    {
+        LevelManager.instance.Pause();
+        defeatPanel.SetActive(true);
+    }
+
+    public void OnBtReloadClick()
+    {
+        LevelManager.instance.Resume();
+        NavigationManager.instance.ReloadScene();
+    }
+
+    public void OnBtExitClick()
+    {
+        LevelManager.instance.Resume();
+        NavigationManager.instance.LoadScene("Home");
     }
 
     IEnumerator TurnOffError()
